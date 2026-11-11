@@ -3,7 +3,7 @@ name: malas-engineer
 description: "Engineering quality gate for coding agents. Use when designing, implementing, debugging, refactoring, reviewing, or testing code. Enforces explicit layered architecture for nontrivial backends, minimal diffs, risk-based tests, secure defaults, evidence-based verification, and plain technical English."
 license: Apache-2.0
 metadata:
-  version: "4.0.0"
+  version: "4.1.0"
   author: Dadang Sutanto
   repository: "https://github.com/sutantodadang/malas-engineer"
   tags: "engineering, architecture, code-review, testing, security, go, sqlc"
@@ -22,6 +22,7 @@ Read this file first. Load a reference only when its trigger applies. Do not pre
 | Read when | Reference |
 |---|---|
 | Choosing or challenging an architecture | [references/architecture-guide.md](references/architecture-guide.md) |
+| Adding a function, placing a helper, or splitting files and folders | [references/code-organization.md](references/code-organization.md) |
 | Go with sqlc, sqlx, or GORM | [references/go-sqlc-pattern.md](references/go-sqlc-pattern.md) |
 | Planning tests or judging test quality | [references/testing-guide.md](references/testing-guide.md) |
 | Auth, tenancy, input, secrets, dependencies | [references/security-checklist.md](references/security-checklist.md) |
@@ -45,13 +46,26 @@ When these conflict, correctness wins over elegance. A clear explicit duplicatio
 ## The loop
 
 1. **Frame.** State the problem and acceptance criteria in one or two sentences. Name what is out of scope.
-2. **Read.** Inspect the touched paths, callers, tests, schema, and conventions before editing. Find the root cause of a bug; do not patch the symptom.
-3. **Decide.** Pick the smallest design that keeps the change local. Record real trade-offs. If a decision changes a public contract or an architectural boundary, write an ADR.
+2. **Read.** Inspect the touched paths, callers, tests, schema, and conventions before editing. Search for existing implementations before adding a helper. Find the root cause of a bug; do not patch the symptom.
+3. **Decide.** Pick the smallest design that keeps the change local. Identify the owner of each new responsibility and the contracts it must preserve. Record real trade-offs. If a decision changes a public contract or an architectural boundary, write an ADR.
 4. **Change.** Make a surgical diff. Preserve unrelated behavior, formatting, and dependencies.
 5. **Verify.** Run the narrowest check that can falsify the change, then widen by risk. Use the evidence ledger below.
 6. **Report.** Changed, verified, not verified. No adjectives.
 
 For small tasks, run the loop silently and briefly. For high-risk tasks, write the trade-offs and the verification gaps down.
+
+## Principal-level engineering standard
+
+Judge the result by the decisions and evidence, not by a persona or a famous programmer's style.
+
+- Model the data and invariants before the control flow. Make units, valid states, ownership, and mutation explicit; avoid parallel flags that permit contradictory states.
+- Trace the whole changed path: input, policy, persistence, output, failure, and cleanup. Check affected callers, tests, fixtures, configuration, and exports.
+- Keep contracts narrow and explicit. Name inputs, outputs, errors, side effects, and resource ownership. Preserve cancellation, transaction, and cleanup semantics when extracting code.
+- Prefer direct control flow and domain names. Reduce nesting where it clarifies the path; avoid clever expressions, boolean mode switches, and wrappers that hide different responsibilities.
+- Separate calculation from I/O when it creates a useful boundary. Choose data structures and algorithms for the actual access pattern; measure hot paths before optimizing.
+- Review the final code, not only the patch. A small diff is insufficient if it adds duplicate policy, hides a failure, or extends a module with an unrelated responsibility.
+
+Before finishing, explain to yourself: why does this code live here, what invariant does it preserve, and which check would catch a broken implementation? Fix an unclear answer on the touched path.
 
 ## Architecture: choose the smallest sufficient shape
 
@@ -85,6 +99,19 @@ Dependency arrows point inward. A handler may import a service. A service must n
 Use names a new maintainer can guess: `handler`, `service`, `repository`, `domain`, `infrastructure`, `tests`. Idiomatic alternatives are fine: `views` in Django, `handlers` in Go, `routes` in FastAPI. Group by feature when the codebase is large; keep the same layer names inside each feature.
 
 If a maintainer cannot point to the handler, the business rule, the persistence boundary, and the tests in under a minute, the design is incomplete.
+
+### Functions, files, and folders
+
+Read [references/code-organization.md](references/code-organization.md) before adding helpers or changing module boundaries.
+
+1. Search for existing behavior and inspect its contract before reusing or duplicating it.
+2. Place reusable mechanics in a named utility module at the narrowest shared scope. Keep business rules in their owning domain or feature, even when several callers use them.
+3. Move a cohesive helper group into a named sibling module when its details obscure the main workflow or it owns a separate responsibility. A single caller does not prevent a useful extraction.
+4. Keep a tiny private helper near its caller when it explains that caller and extraction would only add navigation. Function size alone does not decide placement.
+5. Split files by responsibility, dependencies, or change patterns; line count is a review signal, not a quota. Create folders for a recognizable group of related modules, not for each function.
+6. After a move, update callers, imports, exports, and tests. Check dependency direction and run the affected behavior through its real entry point.
+
+For a nontrivial extraction, record briefly: current owner, consumers, destination, dependency direction, and behavior checks. Do not create a separate design document for a local move.
 
 ### When to stop adding structure
 
@@ -214,6 +241,8 @@ Never turn an inference into an observation. Never report a planned check as a c
 - [ ] Security, tenancy, and error paths were considered on touched code.
 - [ ] Public contracts and migrations are compatible, or the break is explicit.
 - [ ] The change is readable without a walkthrough.
+- [ ] New helpers have a deliberate owner; existing reuse candidates were inspected.
+- [ ] File boundaries clarify responsibilities without fragmenting the primary path.
 - [ ] Verification evidence is recorded.
 - [ ] Remaining risks and unknowns are stated.
 
@@ -221,6 +250,9 @@ Never turn an inference into an observation. Never report a planned check as a c
 
 - A layer, interface, or abstraction that only forwards a call.
 - A generic repository for every table.
+- A growing `utils`, `helpers`, or `common` module with unrelated responsibilities.
+- One file per small function, or an oversized workflow file used as the default home for every helper.
+- Shared code inferred from similar syntax while its callers have different policies.
 - A rewrite when a surgical fix is enough.
 - A test that mirrors the implementation instead of the behavior.
 - A cache, queue, or microservice added without a measured bottleneck.

@@ -2,6 +2,18 @@
 
 All notable changes to this skill are documented here. The format follows Keep a Changelog, and the project uses Semantic Versioning.
 
+## [4.1.0] - 2026-11-11
+
+### Added
+
+- Principal-level engineering checks for data invariants, contracts, resource ownership, control flow, and whole-path verification.
+- Function and file placement guide: private helpers, feature modules, shared utilities, cohesive splitting, and folder boundaries.
+- Review checks for helper ownership, reuse compatibility, and behavior-preserving extraction.
+
+### Changed
+
+- Minimal diffs must also preserve readable responsibility boundaries; small functions no longer default to either the current file or a generic utility module.
+
 ## [4.0.0] - 2026-11-01
 
 ### Added

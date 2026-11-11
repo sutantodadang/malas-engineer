@@ -65,6 +65,8 @@ internal/
 
 Either is acceptable. Do not mix both halfway. Pick one and keep it predictable. In feature grouping, keep the same layer names inside each feature so navigation stays uniform.
 
+Within a feature, name cohesive modules by their job: `pricing`, `csv_import`, or `tracking`, rather than collecting all small functions in `utils`. Keep reusable business policy with its domain owner. Share generic mechanics only when their callers agree on the contract. Use the function and file placement guide linked from `SKILL.md` for the decision procedure.
+
 ## Stack examples
 
 ### Go
@@ -179,7 +181,7 @@ Reject these unless the context proves otherwise:
 ## Existing codebases
 
 1. Inspect the current conventions. Follow them for local changes.
-2. Make the smallest change that fits.
+2. Make the smallest change that fits. Give new responsibilities a deliberate home; do not append unrelated helpers to an already mixed module merely to minimize the diff.
 3. If the code mixes concerns, explain the cost and propose staged refactoring.
 4. Do not reorganize unrelated modules without approval.
 5. If a migration is approved, write characterization tests first, then move one seam at a time.

@@ -27,6 +27,10 @@ Use this proportionately. It is a thinking aid, not a reason to expand scope.
 - [ ] The abstraction is justified by a real boundary or test seam.
 - [ ] The next likely change stays local.
 - [ ] The design is no more complex than the problem.
+- [ ] Data states, units, mutation, and resource ownership are explicit where relevant.
+- [ ] Existing reuse candidates were inspected for matching contracts, not just matching names.
+- [ ] Business policy stays with its feature or domain; shared utilities contain compatible mechanics.
+- [ ] Each new module has a named responsibility and a valid dependency direction.
 
 ### Readability
 
@@ -35,6 +39,9 @@ Use this proportionately. It is a thinking aid, not a reason to expand scope.
 - [ ] Control flow is direct. Nesting is limited.
 - [ ] Comments explain why, not what.
 - [ ] A new maintainer could follow the primary path without a walkthrough.
+- [ ] Helper placement keeps the workflow readable: cohesive detail is extracted, tiny private detail stays local when that is clearer.
+- [ ] File splits follow responsibilities, not line quotas or a one-function-per-file rule.
+- [ ] Folders group related modules; no generic dumping ground or empty scaffolding was added.
 
 ### Tests
 
@@ -68,6 +75,7 @@ Use this proportionately. It is a thinking aid, not a reason to expand scope.
 - [ ] No generated artifacts committed by accident.
 - [ ] No new dependency without justification.
 - [ ] Call sites, imports, configuration, and docs are updated.
+- [ ] Moved code preserves public exports, error behavior, evaluation order, transactions, and cleanup.
 - [ ] Migrations are reversible or have a documented rollback.
 - [ ] `git diff --check` passes.
 

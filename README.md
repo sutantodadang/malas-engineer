@@ -4,13 +4,14 @@
 
 An engineering quality gate for AI coding agents. It gives an agent a stable operating policy: how to choose an architecture, how small a diff should be, what to test, what to verify, and how to report evidence.
 
-Version 4.0.0. Apache-2.0.
+Version 4.1.0. Apache-2.0.
 
 ## Why
 
 Coding agents are fast at producing plausible code and weak at knowing when it is wrong. Common failures repeat:
 
 - Layers, interfaces, and wrappers that only forward calls.
+- Helpers scattered across tiny files, or unrelated logic accumulated in a workflow or `utils` file.
 - A rewrite when a surgical fix was enough.
 - Tests that execute code but cannot detect a defect.
 - Security and tenancy checks omitted on background paths.
@@ -24,6 +25,7 @@ This skill encodes the opposite habits.
 |---|---|
 | `SKILL.md` | Core policy. Read first. |
 | `references/architecture-guide.md` | Architecture selection ladder, layer contract, stack examples |
+| `references/code-organization.md` | Helper ownership, utility reuse, file splitting, folder layout, safe extraction |
 | `references/go-sqlc-pattern.md` | Go with sqlc, sqlx, and GORM; transactions; money types |
 | `references/testing-guide.md` | Test selection, contract tests, property-based tests, mutation testing, flaky tests |
 | `references/security-checklist.md` | AuthN/AuthZ, tenancy, input, secrets, dependencies, supply chain |
@@ -73,6 +75,8 @@ bash scripts/review_diff.sh
 
 The validator checks frontmatter fields, name rules, the 500-line limit, reference links, and orphan reference files.
 
+Use [tests/skill-scenarios.md](tests/skill-scenarios.md) to check helper-placement decisions with fresh agents. These behavioral samples do not replace verification on real code.
+
 ## Design principles
 
 1. **Smallest sufficient architecture.** Layers are a tool, not a badge.
@@ -82,6 +86,7 @@ The validator checks frontmatter fields, name rules, the 500-line limit, referen
 5. **Secure by default.** Authorization, tenancy, and input handling are not optional.
 6. **Progressive disclosure.** A lean `SKILL.md` routes to focused references.
 7. **Plain language.** Short sentences, concrete verbs, no marketing.
+8. **Deliberate ownership.** Place helpers by responsibility and real reuse; split files when it makes the workflow easier to understand.
 
 ## Compatibility
 
