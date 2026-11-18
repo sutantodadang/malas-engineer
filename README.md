@@ -51,7 +51,15 @@ Download the current installer and run the same command to update. Running it tw
 
 To uninstall, append `--uninstall` to the same command, for example `python malas-engineer.pyz codex --uninstall`. Restart the agent. A modified skill directory is backed up during removal.
 
-For a **project-only or manual installation**, copy just [skills/malas-engineer](skills/malas-engineer) into the agent’s skills directory. For Codex in a project use `.agents/skills/`. For Claude Code use `.claude/skills/`. This option uses normal skill discovery. Teams can add a project rule in their own instruction file.
+## Install for one project
+
+From the project root, the open-source Skills CLI can install the portable skill for Codex in one command:
+
+```sh
+npx --yes skills@1.9.0 add sutantodadang/malas-engineer --skill malas-engineer --agent codex --copy -y
+```
+
+Teams can also copy [skills/malas-engineer](skills/malas-engineer) into `.agents/skills/` for Codex or `.claude/skills/` for Claude Code. Both approaches use normal skill discovery. For a standing team rule, add the instruction to the project’s own agent configuration.
 
 ## Evidence and contributions
 
