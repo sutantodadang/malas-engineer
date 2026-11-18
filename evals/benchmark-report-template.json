@@ -1,0 +1,16 @@
+{
+  "case_id": "",
+  "model": "",
+  "model_version": "",
+  "source_commit": "",
+  "condition": "baseline-or-skill",
+  "attempt": 1,
+  "started_utc": "",
+  "changed_files": [],
+  "test_commands_and_exit_codes": [],
+  "manual_corrections_count": null,
+  "rubric_scores_0_to_2": {},
+  "automatic_reject_reasons": [],
+  "verified_by": "",
+  "notes": ""
+}

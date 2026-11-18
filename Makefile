@@ -2,9 +2,10 @@
 
 validate:
 	python3 scripts/validate_skill.py .
+	python3 scripts/validate.py .
 
 lint:
-	bash -n scripts/review_diff.sh
+	bash scripts/test_review_diff.sh
 
 test: validate lint
-	echo "OK"
+	python3 scripts/run_local_validation.py

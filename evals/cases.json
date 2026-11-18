@@ -1,0 +1,298 @@
+[
+  {
+    "id": "di-go-sqlc",
+    "prompt": "Add a Go report endpoint in an existing sqlc project. Show the handler, service, narrow injected SQLC contract and real composition root. Do not introduce an unnecessary forwarding repository. Do not invent generated query signatures.",
+    "critical": [
+      "real constructor injection",
+      "composition root",
+      "no invented sqlc API"
+    ]
+  },
+  {
+    "id": "split-peruri",
+    "prompt": "In a Go document processing API, retry-backoff calculations and HTTP callback logic have grown inside service.go. Follow the assignment rule that six public service methods must remain in Service.go. Refactor only independently owned responsibilities without breaking signatures.",
+    "critical": [
+      "keep required methods",
+      "split distinct dependencies",
+      "minimal diff"
+    ]
+  },
+  {
+    "id": "keep-tiny-helper",
+    "prompt": "Add a three-line purely local normalization guard used by one invoice service method. Should it get its own file? Implement minimally and explain.",
+    "critical": [
+      "no one-function file",
+      "same responsibility stays local"
+    ]
+  },
+  {
+    "id": "python-django",
+    "prompt": "Build a Django reconciliation endpoint: request parsing, CSV matching rules, and ORM writes. Ensure view, service, persistence concerns are visibly separated. Wire dependencies explicitly and supply relevant unit/integration tests.",
+    "critical": [
+      "thin view",
+      "service owns policy",
+      "I/O boundary and DI"
+    ]
+  },
+  {
+    "id": "typescript-di",
+    "prompt": "Add a BookService dependency on a remote ISBN catalog and a persistence repository in a TS API. Show explicit wiring, a fake-based service test and error mapping at HTTP layer.",
+    "critical": [
+      "two injected collaborators",
+      "no API client creation inside service",
+      "tests"
+    ]
+  },
+  {
+    "id": "unknown-facts",
+    "prompt": "Fix a bug involving a SQLC method that does not appear in the current generated code. You cannot access external docs. Make no invented signatures or passing-test claims.",
+    "critical": [
+      "explicit uncertainty",
+      "inspect actual files or ask",
+      "no fake success"
+    ]
+  },
+  {
+    "id": "existing-minimal",
+    "prompt": "Fix a local invalid UUID panic in a mature Go service. Add regression test. Do not reorganize unrelated packages or replace entire layering.",
+    "critical": [
+      "minimal diff",
+      "safe error path",
+      "test proof"
+    ]
+  },
+  {
+    "id": "failure-review",
+    "prompt": "Review a service that accepts `repo` but uses global DB, handler writes direct SQL, composition creates service without repository. Identify architectural failures and propose smallest safe remediation.",
+    "critical": [
+      "identifies false DI",
+      "handler SQL breach",
+      "production assembly"
+    ]
+  },
+  {
+    "id": "false-di-service-locator",
+    "prompt": "A Python OrderService constructor accepts `repo`, but its create method calls `container.get_repository()` and never references self.repo. Fix only the DI violation and add a fake test.",
+    "critical": [
+      "reject service locator",
+      "use injected dependency",
+      "verify fake call"
+    ]
+  },
+  {
+    "id": "fake-di-shadowing",
+    "prompt": "In TypeScript BookService, `constructor(bookRepo: IBookRepo)` saves the dependency but each method creates `new PrismaClient()`. Correct it and demonstrate real composition and test substitution.",
+    "critical": [
+      "no direct ORM construction",
+      "injected repo is actually used",
+      "real wiring"
+    ]
+  },
+  {
+    "id": "split-by-role-not-length",
+    "prompt": "A 55-line FastAPI route contains Pydantic request mapping, bank-transfer fee calculations, and SQLAlchemy transaction writes. Choose file boundaries and implement without adding empty packages.",
+    "critical": [
+      "split by layer even if short",
+      "service owns fee rules",
+      "persistence isolated"
+    ]
+  },
+  {
+    "id": "keep-cohesive-long",
+    "prompt": "A 220-line Go service contains a 15-line private normalizeStatus helper and 5 related small methods sharing one repository. Do you split each method into separate file? Explain decision and show minimal edit.",
+    "critical": [
+      "no line-count split",
+      "helpers stay with owner",
+      "readable cohesive code"
+    ]
+  },
+  {
+    "id": "two-workflows",
+    "prompt": "An invoice service now contains CSV import parsing and a separate payment settlement workflow; they have different dependencies, retries and tests. Refactor by ownership while preserving public API.",
+    "critical": [
+      "separate changing responsibilities",
+      "no unrelated refactor",
+      "maintain contract"
+    ]
+  },
+  {
+    "id": "sqlc-generated-boundary",
+    "prompt": "In Go SQLC with emit_interface false, create a service with a small consumer-owned port satisfied by actual generated Queries. Check generated signatures first; do not invent a Querier or wrapper.",
+    "critical": [
+      "inspect codegen config",
+      "small interface",
+      "no redundant wrapper"
+    ]
+  },
+  {
+    "id": "framework-lifetime",
+    "prompt": "A FastAPI Depends dependency opens a database session per request; a singleton service stores that session for later background jobs. Fix lifetime boundary and show testable wiring.",
+    "critical": [
+      "no captive scoped session",
+      "correct session lifecycle",
+      "test substitution"
+    ]
+  },
+  {
+    "id": "resilience-transaction",
+    "prompt": "A financial transfer service updates two accounts and sends an external notification inside the same long database transaction. Choose transaction and notification boundaries and negative-path tests.",
+    "critical": [
+      "atomic transfer",
+      "avoid long DB tx over network",
+      "idempotency/error tests"
+    ]
+  },
+  {
+    "id": "assignment-constraints",
+    "prompt": "A take-home assignment mandates exactly six public functions in Service.go; the algorithm has grown. Refactor retry and callback collaborators while keeping signatures, file names, and behavior.",
+    "critical": [
+      "honor required file and API",
+      "separate truly independent policies",
+      "no regression"
+    ]
+  },
+  {
+    "id": "api-compatibility",
+    "prompt": "Refactor a BookService with an HTTP-specific error type into application errors; keep externally observed status codes and JSON response shapes unchanged.",
+    "critical": [
+      "domain/application independence",
+      "HTTP mapping unchanged",
+      "integration contract test"
+    ]
+  },
+  {
+    "id": "java-spring-di",
+    "prompt": "In a Java Spring Boot order API, a service currently calls `new JdbcOrderRepository()` inside a method despite accepting an injected repository. Repair only the affected seam. Show constructor injection, proper bean wiring and a unit test with a fake. Preserve endpoint contracts.",
+    "critical": [
+      "Java service uses supplied repository",
+      "Spring bean lifecycle and wiring",
+      "no unrelated refactor"
+    ]
+  },
+  {
+    "id": "kotlin-ktor",
+    "prompt": "Add a Kotlin Ktor invoice endpoint. Use explicit request boundary, application service, injected persistence port and adapter. Avoid unnecessary abstraction, keep existing dependency conventions, and explain file ownership.",
+    "critical": [
+      "Ktor layering",
+      "explicit DI",
+      "minimal cohesive files"
+    ]
+  },
+  {
+    "id": "csharp-dotnet",
+    "prompt": "Fix a C# ASP.NET Core scoped DbContext service that is accidentally registered as singleton. Demonstrate correct lifetime, constructor injection and test substitution. Preserve public API.",
+    "critical": [
+      "ASP.NET DI lifetime",
+      "testable collaborator",
+      "no service locator"
+    ]
+  },
+  {
+    "id": "rust-axum",
+    "prompt": "In Rust Axum, extract business decisions from a handler that calls sqlx directly. Use an injected state/service and trait or function boundary as idiomatic; do not copy TypeScript interface patterns or hide database construction in service.",
+    "critical": [
+      "Rust idiomatic DI",
+      "handler thin",
+      "actual wiring"
+    ]
+  },
+  {
+    "id": "zig-cli",
+    "prompt": "A Zig CLI parses a CSV and writes results to disk. Decide whether to split parser, command and file I/O into multiple source files based on reasons to change, not line count. Use explicit context/arguments for file effects; no OO constructor ceremony.",
+    "critical": [
+      "Zig idiomatic boundaries",
+      "split/keep based on responsibilities",
+      "no artificial classes"
+    ]
+  },
+  {
+    "id": "cpp-embedded",
+    "prompt": "A small C++ embedded control loop reads a sensor and updates an actuator. Design testable injection of device boundaries without heap-heavy generic frameworks. Preserve timing and hardware constraints.",
+    "critical": [
+      "C++ testable interfaces/callables",
+      "no framework overengineering",
+      "runtime constraints"
+    ]
+  },
+  {
+    "id": "php-laravel",
+    "prompt": "A PHP Laravel controller currently performs query-builder updates and discount rules. Refactor into a focused application service and data boundary while preserving transaction behavior; rely on Laravel container injection without gratuitous repository wrappers.",
+    "critical": [
+      "Laravel lifetime and DI",
+      "separated workflow",
+      "transaction integrity"
+    ]
+  },
+  {
+    "id": "ruby-rails",
+    "prompt": "A Ruby Rails service object calls a payment gateway directly through a global constant and also formats HTTP responses. Refactor minimally with an injected gateway and clear controller/service boundary. Do not create one class per tiny helper.",
+    "critical": [
+      "Ruby pragmatic injection",
+      "HTTP separation",
+      "cohesive files"
+    ]
+  },
+  {
+    "id": "swift-mobile",
+    "prompt": "An iOS SwiftUI screen currently owns networking, cache and price calculation. Choose meaningful view/state/use-case/data boundaries, inject network dependency for tests, and do not invent HTTP controller or SQL repository layers.",
+    "critical": [
+      "SwiftUI lifecycle aware",
+      "real test substitution",
+      "no backend template"
+    ]
+  },
+  {
+    "id": "dart-flutter",
+    "prompt": "A Flutter Dart widget fetches remote data, applies business rules, and renders UI. Move logic into appropriate application/state and data boundary with provider/constructor DI as project convention, without making every widget a service.",
+    "critical": [
+      "Flutter separation",
+      "idiomatic DI",
+      "avoid excess files"
+    ]
+  },
+  {
+    "id": "elixir-phoenix",
+    "prompt": "An Elixir Phoenix context mixes HTTP params mapping and domain authorization. Decide proper controller/context/persistence ownership; use effect substitution idiomatic to Elixir, not class constructor injection.",
+    "critical": [
+      "Phoenix idioms",
+      "policy ownership",
+      "no class DI template"
+    ]
+  },
+  {
+    "id": "javascript-express",
+    "prompt": "An Express JavaScript route creates a database client and writes SQL inline. Introduce a service and explicit database collaborator via a factory/function parameter; include composition root and a test without DB.",
+    "critical": [
+      "JS functional DI",
+      "thin route",
+      "bootstrap and fake"
+    ]
+  },
+  {
+    "id": "shell-automation",
+    "prompt": "A Bash automation script has argument parsing, a pure filename transform and destructive filesystem operations. Decide what stays in one file; isolate side effects and add testable dry run. Do not impose controller-service-repository folders.",
+    "critical": [
+      "shell safety",
+      "split/keep pragmatism",
+      "no arbitrary service classes"
+    ]
+  },
+  {
+    "id": "functional-haskell",
+    "prompt": "A Haskell library currently mixes a pure price calculation with external HTTP calls. Keep pure calculations independent from effects, pass effectful functions explicitly, and test calculations without network. Do not introduce OO service classes.",
+    "critical": [
+      "pure core/effectful shell",
+      "no irrelevant OO layering",
+      "repeatable tests"
+    ]
+  },
+  {
+    "id": "sql-migration",
+    "prompt": "A SQL schema migration adds a unique constraint and data backfill. Maintain correctness, migration ordering, compatibility and rollback analysis; do not add fake service/controller modules just to satisfy layered architecture.",
+    "critical": [
+      "migration correctness",
+      "validation and rollback",
+      "no artificial layers"
+    ]
+  }
+]

@@ -12,6 +12,9 @@ This repository holds one skill. Changes should improve the policy, a reference,
 
 ```bash
 python3 scripts/validate_skill.py .
+python3 scripts/validate.py .
+npm ci --prefix examples/typescript-contract --ignore-scripts --no-audit --no-fund
+python3 scripts/run_local_validation.py
 bash scripts/review_diff.sh
 ```
 
@@ -23,7 +26,7 @@ bash scripts/review_diff.sh
 - Short sentences. One idea per sentence.
 - Active voice. Concrete verbs.
 - No marketing adjectives. No "production-ready" without evidence.
-- Every reference must be linked from `SKILL.md` with a "Read when" trigger.
+- References need a relevant read trigger; do not load the whole library on every task.
 - Keep `SKILL.md` under 500 lines.
 
 ## Adding a reference

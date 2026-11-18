@@ -6,13 +6,28 @@ on:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Validate skill
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: examples/go-contract/go.mod
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install pinned example compiler
+        working-directory: examples/typescript-contract
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Validate skill metadata
         run: python3 scripts/validate_skill.py .
-      - name: Check diff hygiene script syntax
-        run: bash -n scripts/review_diff.sh
+      - name: Run package, tooling, and executable contract checks
+        run: python3 scripts/run_local_validation.py
+      - name: Exercise diff hygiene on staged changes
+        shell: bash
+        run: bash scripts/test_review_diff.sh

@@ -1,0 +1,1 @@
+We need to pipe exports into the entry counter: python cli.py - should print the same count as the file command. Callers embedding the library also want to pass an open text stream to read_entries. Preserve supported file calls and error behavior. Keep the change small, add regression coverage, and verify it.

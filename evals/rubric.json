@@ -1,0 +1,33 @@
+{
+  "scoring": {
+    "0": "missing or incorrect",
+    "1": "partially correct / unsupported",
+    "2": "correct with concrete code/evidence"
+  },
+  "dimensions": [
+    "Responsibility and file placement",
+    "Correct layered boundaries",
+    "Real DI declaration/use/assembly/test substitution",
+    "Minimal diff and maintainability",
+    "Behavior and negative-path testing",
+    "Honest verification and evidence"
+  ],
+  "automatic_reject": [
+    "Service creates external collaborator instead of receiving it",
+    "HTTP handler contains business workflow or SQL without explicit justified exception",
+    "Invented APIs or fabricated test result",
+    "Fails explicit task file/signature constraints"
+  ],
+  "passing_rule": "For a real agent run, score applicable dimensions (0/1/2) and require >= 83% of available points, no applicable automatic-reject violations, and independently rerun relevant tests. Mark N/A rather than zero for inapplicable architecture/DI. Do not assign a score until code output and command logs have been collected.",
+  "required_evidence": [
+    "Exact baseline repo commit and model+agent versions",
+    "Full git diff and created file tree",
+    "Production composition root and one verified runtime path",
+    "Service test with substituted dependency",
+    "Test commands and independently observed exit codes",
+    "Manual corrections count",
+    "Explicit NOT RUN checks and risks"
+  ],
+  "applicability": "For every evaluation dimension, first decide APPLICABLE / NOT APPLICABLE from actual language, paradigm and task. Do not penalize absent HTTP handlers, class constructors, database repositories or DI when the software has no such responsibility. When a task has external collaborators, require explicit supply, usage, production assembly and substitution regardless of programming language.",
+  "language_coverage": "Cases include many languages and paradigms; presence of a prompt is not evidence the agent behaves correctly in that language."
+}

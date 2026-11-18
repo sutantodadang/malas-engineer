@@ -1,0 +1,463 @@
+{
+  "windows_python": "3.12.12",
+  "node": "v24.13.0",
+  "model_revision": null,
+  "sha256": {
+    "verification_skill": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3",
+    "v5_skill": "38181f344493e9ea42b2efc4cf4007043a36d1ab7283d9ab0fe0fc9ee7ac4c25",
+    "draft_skill": "5a3e42484d79bb591a1b288f2f0d7e081b44e9149f2918fb18226645e872069c",
+    "trial_zip": "fd5cd0287b6e81bd65f55580270e34f150722810808e666fd15a913b12d241ce"
+  },
+  "trials": [
+    {
+      "task": "stream",
+      "arm": "control",
+      "trial": 1,
+      "independent": {
+        "exit": 1,
+        "tests": 10,
+        "passed": 8,
+        "failed_cases": [
+          "test_cli_rejects_invalid_utf8_like_file_input",
+          "test_cli_utf8_pipe_under_an_ascii_stdio_default"
+        ]
+      },
+      "agent_tests": {
+        "exit": 0,
+        "tests": 2,
+        "passed": 2,
+        "failed_cases": []
+      },
+      "agent_tests_on_original": {
+        "exit": 1,
+        "tests": 2,
+        "passed": 0,
+        "failed_cases": [
+          "test_file_and_stdin_counts",
+          "test_stream_ownership_and_parse_errors"
+        ]
+      }
+    },
+    {
+      "task": "stream",
+      "arm": "control",
+      "trial": 2,
+      "independent": {
+        "exit": 1,
+        "tests": 10,
+        "passed": 8,
+        "failed_cases": [
+          "test_cli_rejects_invalid_utf8_like_file_input",
+          "test_cli_utf8_pipe_under_an_ascii_stdio_default"
+        ]
+      },
+      "agent_tests": {
+        "exit": 0,
+        "tests": 2,
+        "passed": 2,
+        "failed_cases": []
+      },
+      "agent_tests_on_original": {
+        "exit": 1,
+        "tests": 2,
+        "passed": 0,
+        "failed_cases": [
+          "test_stream_is_borrowed_on_success_and_error",
+          "test_cli_counts_file_and_stdin"
+        ]
+      }
+    },
+    {
+      "task": "stream",
+      "arm": "v4",
+      "trial": 1,
+      "independent": {
+        "exit": 1,
+        "tests": 10,
+        "passed": 8,
+        "failed_cases": [
+          "test_cli_rejects_invalid_utf8_like_file_input",
+          "test_cli_utf8_pipe_under_an_ascii_stdio_default"
+        ]
+      },
+      "agent_tests": {
+        "exit": 0,
+        "tests": 4,
+        "passed": 4,
+        "failed_cases": []
+      },
+      "agent_tests_on_original": {
+        "exit": 1,
+        "tests": 4,
+        "passed": 1,
+        "failed_cases": [
+          "test_cli_counts_stdin_and_file",
+          "test_malformed_stream_keeps_its_owner",
+          "test_stream_reads_from_current_position_and_stays_open"
+        ]
+      }
+    },
+    {
+      "task": "stream",
+      "arm": "v4",
+      "trial": 2,
+      "independent": {
+        "exit": 1,
+        "tests": 10,
+        "passed": 8,
+        "failed_cases": [
+          "test_cli_rejects_invalid_utf8_like_file_input",
+          "test_cli_utf8_pipe_under_an_ascii_stdio_default"
+        ]
+      },
+      "agent_tests": {
+        "exit": 0,
+        "tests": 3,
+        "passed": 3,
+        "failed_cases": []
+      },
+      "agent_tests_on_original": {
+        "exit": 1,
+        "tests": 3,
+        "passed": 0,
+        "failed_cases": [
+          "test_borrowed_stream_starts_at_current_position",
+          "test_invalid_json_leaves_stream_open",
+          "test_paths_and_cli"
+        ]
+      }
+    },
+    {
+      "task": "stream",
+      "arm": "verification",
+      "trial": 1,
+      "independent": {
+        "exit": 1,
+        "tests": 10,
+        "passed": 8,
+        "failed_cases": [
+          "test_cli_rejects_invalid_utf8_like_file_input",
+          "test_cli_utf8_pipe_under_an_ascii_stdio_default"
+        ]
+      },
+      "agent_tests": {
+        "exit": 0,
+        "tests": 3,
+        "passed": 3,
+        "failed_cases": []
+      },
+      "agent_tests_on_original": {
+        "exit": 1,
+        "tests": 3,
+        "passed": 0,
+        "failed_cases": [
+          "test_file_and_cli_stdin",
+          "test_invalid_json_propagates_and_stream_stays_open",
+          "test_stream_starts_at_current_position_and_stays_open"
+        ]
+      }
+    },
+    {
+      "task": "stream",
+      "arm": "verification",
+      "trial": 2,
+      "independent": {
+        "exit": 1,
+        "tests": 10,
+        "passed": 8,
+        "failed_cases": [
+          "test_cli_rejects_invalid_utf8_like_file_input",
+          "test_cli_utf8_pipe_under_an_ascii_stdio_default"
+        ]
+      },
+      "agent_tests": {
+        "exit": 0,
+        "tests": 4,
+        "passed": 4,
+        "failed_cases": []
+      },
+      "agent_tests_on_original": {
+        "exit": 1,
+        "tests": 4,
+        "passed": 1,
+        "failed_cases": [
+          "test_cli_file_and_pipe",
+          "test_malformed_stream_stays_open",
+          "test_stream_reads_from_current_position_and_stays_open"
+        ]
+      }
+    },
+    {
+      "task": "stream",
+      "arm": "draft",
+      "trial": 1,
+      "independent": {
+        "exit": 1,
+        "tests": 10,
+        "passed": 8,
+        "failed_cases": [
+          "test_cli_rejects_invalid_utf8_like_file_input",
+          "test_cli_utf8_pipe_under_an_ascii_stdio_default"
+        ]
+      },
+      "agent_tests": {
+        "exit": 0,
+        "tests": 3,
+        "passed": 3,
+        "failed_cases": []
+      },
+      "agent_tests_on_original": {
+        "exit": 1,
+        "tests": 3,
+        "passed": 0,
+        "failed_cases": [
+          "test_borrowed_stream_reads_from_current_position",
+          "test_parse_failure_leaves_borrowed_stream_open",
+          "test_paths_and_cli_pipe"
+        ]
+      }
+    },
+    {
+      "task": "stream",
+      "arm": "draft",
+      "trial": 2,
+      "independent": {
+        "exit": 1,
+        "tests": 10,
+        "passed": 8,
+        "failed_cases": [
+          "test_cli_rejects_invalid_utf8_like_file_input",
+          "test_cli_utf8_pipe_under_an_ascii_stdio_default"
+        ]
+      },
+      "agent_tests": {
+        "exit": 0,
+        "tests": 4,
+        "passed": 4,
+        "failed_cases": []
+      },
+      "agent_tests_on_original": {
+        "exit": 1,
+        "tests": 4,
+        "passed": 1,
+        "failed_cases": [
+          "test_cli_counts_file_and_stdin",
+          "test_invalid_stream_stays_open",
+          "test_stream_reads_from_current_position_and_stays_open"
+        ]
+      }
+    },
+    {
+      "task": "stream",
+      "arm": "v5",
+      "trial": 1,
+      "independent": {
+        "exit": 0,
+        "tests": 10,
+        "passed": 10,
+        "failed_cases": []
+      },
+      "agent_tests": {
+        "exit": 0,
+        "tests": 3,
+        "passed": 3,
+        "failed_cases": []
+      },
+      "agent_tests_on_original": {
+        "exit": 1,
+        "tests": 3,
+        "passed": 1,
+        "failed_cases": [
+          "test_borrowed_stream_and_file",
+          "test_cli_pipe_matches_file",
+          "test_cli_pipe_matches_file",
+          "test_cli_pipe_matches_file"
+        ]
+      }
+    },
+    {
+      "task": "stream",
+      "arm": "v5",
+      "trial": 2,
+      "independent": {
+        "exit": 0,
+        "tests": 10,
+        "passed": 10,
+        "failed_cases": []
+      },
+      "agent_tests": {
+        "exit": 0,
+        "tests": 3,
+        "passed": 3,
+        "failed_cases": []
+      },
+      "agent_tests_on_original": {
+        "exit": 1,
+        "tests": 3,
+        "passed": 1,
+        "failed_cases": [
+          "test_open_text_stream",
+          "test_file_and_pipe",
+          "test_file_and_pipe",
+          "test_file_and_pipe"
+        ]
+      }
+    },
+    {
+      "task": "refresh",
+      "arm": "control",
+      "trial": 1,
+      "independent": {
+        "exit": 0,
+        "tests": 5,
+        "passed": 5,
+        "failed_cases": []
+      },
+      "agent_tests": {
+        "exit": 0,
+        "tests": 3,
+        "passed": 3,
+        "failed_cases": []
+      },
+      "agent_tests_on_original": {
+        "exit": 1,
+        "tests": 3,
+        "passed": 1,
+        "failed_cases": [
+          "concurrent default and explicit summary share a load, then load again",
+          "shared failures preserve the original error and permit retries"
+        ]
+      }
+    },
+    {
+      "task": "refresh",
+      "arm": "control",
+      "trial": 2,
+      "independent": {
+        "exit": 0,
+        "tests": 5,
+        "passed": 5,
+        "failed_cases": []
+      },
+      "agent_tests": {
+        "exit": 0,
+        "tests": 3,
+        "passed": 3,
+        "failed_cases": []
+      },
+      "agent_tests_on_original": {
+        "exit": 1,
+        "tests": 3,
+        "passed": 1,
+        "failed_cases": [
+          "concurrent default and summary refreshes share one load until success",
+          "failure reaches both callers and allows the next load"
+        ]
+      }
+    },
+    {
+      "task": "refresh",
+      "arm": "verification",
+      "trial": 1,
+      "independent": {
+        "exit": 0,
+        "tests": 5,
+        "passed": 5,
+        "failed_cases": []
+      },
+      "agent_tests": {
+        "exit": 0,
+        "tests": 3,
+        "passed": 3,
+        "failed_cases": []
+      },
+      "agent_tests_on_original": {
+        "exit": 1,
+        "tests": 3,
+        "passed": 1,
+        "failed_cases": [
+          "overlapping default and summary refreshes share a load until it settles",
+          "failures reach both callers and permit retry"
+        ]
+      }
+    },
+    {
+      "task": "refresh",
+      "arm": "verification",
+      "trial": 2,
+      "independent": {
+        "exit": 0,
+        "tests": 5,
+        "passed": 5,
+        "failed_cases": []
+      },
+      "agent_tests": {
+        "exit": 0,
+        "tests": 3,
+        "passed": 3,
+        "failed_cases": []
+      },
+      "agent_tests_on_original": {
+        "exit": 1,
+        "tests": 3,
+        "passed": 1,
+        "failed_cases": [
+          "overlapping refreshes share the default view and later refreshes load again",
+          "both callers receive the original rejection and a retry loads again"
+        ]
+      }
+    },
+    {
+      "task": "refresh",
+      "arm": "v5",
+      "trial": 1,
+      "independent": {
+        "exit": 0,
+        "tests": 5,
+        "passed": 5,
+        "failed_cases": []
+      },
+      "agent_tests": {
+        "exit": 0,
+        "tests": 3,
+        "passed": 3,
+        "failed_cases": []
+      },
+      "agent_tests_on_original": {
+        "exit": 1,
+        "tests": 3,
+        "passed": 1,
+        "failed_cases": [
+          "overlapping summary refreshes share a load, then fetch again",
+          "both callers receive the original failure and can retry"
+        ]
+      }
+    },
+    {
+      "task": "refresh",
+      "arm": "v5",
+      "trial": 2,
+      "independent": {
+        "exit": 0,
+        "tests": 5,
+        "passed": 5,
+        "failed_cases": []
+      },
+      "agent_tests": {
+        "exit": 0,
+        "tests": 3,
+        "passed": 3,
+        "failed_cases": []
+      },
+      "agent_tests_on_original": {
+        "exit": 1,
+        "tests": 3,
+        "passed": 1,
+        "failed_cases": [
+          "overlapping default and summary requests share a load, then fetch again",
+          "overlapping callers receive the original load failure and can retry"
+        ]
+      }
+    }
+  ]
+}

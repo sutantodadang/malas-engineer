@@ -1,0 +1,69 @@
+test_blank_id_rejected_before_io (__main__.Acceptance.test_blank_id_rejected_before_io) ...
+  test_blank_id_rejected_before_io (__main__.Acceptance.test_blank_id_rejected_before_io) (value='') ... FAIL
+  test_blank_id_rejected_before_io (__main__.Acceptance.test_blank_id_rejected_before_io) (value=' \t\n') ... FAIL
+test_empty_title_is_not_missing (__main__.Acceptance.test_empty_title_is_not_missing) ... FAIL
+test_missing_book (__main__.Acceptance.test_missing_book) ... FAIL
+test_public_signatures_preserved (__main__.Acceptance.test_public_signatures_preserved) ... ok
+test_reader_exception_identity_is_preserved (__main__.Acceptance.test_reader_exception_identity_is_preserved) ... FAIL
+test_review_did_not_add_code_or_tests (__main__.Acceptance.test_review_did_not_add_code_or_tests) ... ok
+test_review_source_unchanged (__main__.Acceptance.test_review_source_unchanged) ... ok
+test_supplied_reader_and_normalized_id (__main__.Acceptance.test_supplied_reader_and_normalized_id) ... FAIL
+
+======================================================================
+FAIL: test_blank_id_rejected_before_io (__main__.Acceptance.test_blank_id_rejected_before_io) (value='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<HOME>\Documents\Programing\project\malas-engineer\evals\check_agent_trial.py", line 24, in test_blank_id_rejected_before_io
+    with self.subTest(value=value), self.assertRaises(ValueError):
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_blank_id_rejected_before_io (__main__.Acceptance.test_blank_id_rejected_before_io) (value=' \t\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<HOME>\Documents\Programing\project\malas-engineer\evals\check_agent_trial.py", line 24, in test_blank_id_rejected_before_io
+    with self.subTest(value=value), self.assertRaises(ValueError):
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_empty_title_is_not_missing (__main__.Acceptance.test_empty_title_is_not_missing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<HOME>\Documents\Programing\project\malas-engineer\evals\check_agent_trial.py", line 41, in test_empty_title_is_not_missing
+    self.assertEqual(catalog.CatalogService({'1': ''}).title('1'), '')
+AssertionError: 'Default title' != ''
+- Default title
+
+
+======================================================================
+FAIL: test_missing_book (__main__.Acceptance.test_missing_book)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<HOME>\Documents\Programing\project\malas-engineer\evals\check_agent_trial.py", line 28, in test_missing_book
+    with self.assertRaises(LookupError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: LookupError not raised
+
+======================================================================
+FAIL: test_reader_exception_identity_is_preserved (__main__.Acceptance.test_reader_exception_identity_is_preserved)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<HOME>\Documents\Programing\project\malas-engineer\evals\check_agent_trial.py", line 36, in test_reader_exception_identity_is_preserved
+    with self.assertRaises(OSError) as caught:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: OSError not raised
+
+======================================================================
+FAIL: test_supplied_reader_and_normalized_id (__main__.Acceptance.test_supplied_reader_and_normalized_id)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<HOME>\Documents\Programing\project\malas-engineer\evals\check_agent_trial.py", line 17, in test_supplied_reader_and_normalized_id
+    self.assertEqual(catalog.CatalogService({'7': 'Injected'}).title(' 7 '), 'Injected')
+AssertionError: None != 'Injected'
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.002s
+
+FAILED (failures=6)

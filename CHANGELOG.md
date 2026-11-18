@@ -2,6 +2,16 @@
 
 All notable changes to this skill are documented here. The format follows Keep a Changelog, and the project uses Semantic Versioning.
 
+## [Unreleased]
+
+## [5.0.0] - 2026-11-18
+
+- Route read-only reviews, small fixes and specification-driven changes through distinct checks. Apply dependency injection and layering where the software has the corresponding responsibilities.
+- Compare equivalent entry points on valid and invalid input under different runtime defaults. Keep caller-owned resources and unrelated edits intact.
+- Move personal activation rules into short opt-in installation snippets. Upgrade by merging the snippet into existing personal instructions. The root instructions govern this repository.
+- Add runnable Go, Python and TypeScript contracts, architecture diagnostics, and Windows/Linux CI. Correct scanner paths and excluded-directory traversal. The staged diff checker detects added conflict markers and treats ordinary console output as a review item.
+- Publish independent coding trials against the prior release, a competing verification skill and a control, alongside their fixtures and acceptance checks. See [the v5 report](evals/reports/v5-trials.md).
+
 ## [4.1.0] - 2026-11-11
 
 ### Added

@@ -1,101 +1,63 @@
-# Malas Engineer
+# Malas Engineer v5.0.0
 
-> Be lazy about unnecessary work. Never be lazy about correctness.
+Malas Engineer helps coding agents decide where behavior belongs, who owns external resources, and which checks demonstrate that a change works. Small fixes stay with the owning module. New backends get explicit boundaries when the workflow needs them. Review requests stay read-only.
 
-An engineering quality gate for AI coding agents. It gives an agent a stable operating policy: how to choose an architecture, how small a diff should be, what to test, what to verify, and how to report evidence.
+The same decisions apply to libraries, CLIs, migrations and frontends. The [task guide](references/universal-application.md) shows how to adapt them across languages.
 
-Version 4.1.0. Apache-2.0.
+## What this version actually tests
 
-## Why
+- **Go:** standard-library example builds and its `go test ./...` suite exercises injected fake, input failure, production composition.
+- **Python:** `unittest` exercises injected fake, input errors, route mapping, production wiring.
+- **TypeScript:** `tsc --noEmit` type-checks source and Node experimental type stripping executes tests for injected fake and wiring (does not replace testing under project-specific compiler/framework).
+- **Architecture diagnostic:** unit tests verify that known bad samples are flagged and known good examples are not flagged. This is a *heuristic*, not a proof of all layered architecture claims.
+- **Packaging:** metadata, reference links and 33 scenario definitions. The release ZIP contains a SHA-256 inventory of its files, excluding the inventory itself.
 
-Coding agents are fast at producing plausible code and weak at knowing when it is wrong. Common failures repeat:
+The [v5 trial report](evals/reports/v5-trials.md) compares actual agent changes on a Python CLI and an asynchronous JavaScript service. It includes replayable outputs, independent tests and a separate Codex discovery check. The [earlier trial](evals/reports/2026-11-17-review.md) covers Python library fixes and read-only reviews. Live databases, SQLC generation and customer deployments remain untested.
 
-- Layers, interfaces, and wrappers that only forward calls.
-- Helpers scattered across tiny files, or unrelated logic accumulated in a workflow or `utils` file.
-- A rewrite when a surgical fix was enough.
-- Tests that execute code but cannot detect a defect.
-- Security and tenancy checks omitted on background paths.
-- Confident summaries with no executed checks behind them.
+## Installation
 
-This skill encodes the opposite habits.
+Extract the `malas-engineer` directory from the release ZIP. The directory must contain `SKILL.md` directly. When updating an installation, preserve any personal customizations.
 
-## What is inside
+**Codex** uses `~/.agents/skills/malas-engineer`. For a team installation, use `.agents/skills/malas-engineer` in the project. Invoke `$malas-engineer` explicitly or let Codex select it from the task description. For a standing preference, merge [the Codex snippet](install/global-AGENTS.md) into your personal `~/.codex/AGENTS.md`.
 
-| File | Purpose |
-|---|---|
-| `SKILL.md` | Core policy. Read first. |
-| `references/architecture-guide.md` | Architecture selection ladder, layer contract, stack examples |
-| `references/code-organization.md` | Helper ownership, utility reuse, file splitting, folder layout, safe extraction |
-| `references/go-sqlc-pattern.md` | Go with sqlc, sqlx, and GORM; transactions; money types |
-| `references/testing-guide.md` | Test selection, contract tests, property-based tests, mutation testing, flaky tests |
-| `references/security-checklist.md` | AuthN/AuthZ, tenancy, input, secrets, dependencies, supply chain |
-| `references/reliability-performance.md` | SLIs, SLOs, error budgets, latency budgets, load testing |
-| `references/review-checklist.md` | Operational review checklist |
-| `references/migration-guide.md` | Incremental adoption in an existing codebase |
-| `references/ai-code-review.md` | Bug taxonomy for generated code and a verification protocol |
-| `references/adr-template.md` | MADR decision record template |
-| `references/agent-context-guide.md` | AGENTS.md, CLAUDE.md, and skill authoring rules |
-| `scripts/validate_skill.py` | Frontmatter, structure, and link validation |
-| `scripts/review_diff.sh` | Diff hygiene scan |
+**Claude Code** uses `~/.claude/skills/malas-engineer`. For a standing preference, merge [the Claude snippet](install/global-CLAUDE.md) into your existing `~/.claude/CLAUDE.md`.
 
-## Install
+**Hermes (where compatible):** place skill at `~/.hermes/skills/software-development/malas-engineer` as described by the existing Malas Engineer repository. This is skill discovery, not proof of always-on execution.
 
-### Hermes
+**Repo-local:** for team/project rules, add short repo-root `AGENTS.md` or `CLAUDE.md` with exact build/test commands. Skill internal `AGENTS.md`/`CLAUDE.md` are *for maintaining this skill repository*; the contents of `install/` are the snippets for global activation.
+
+## Commands
 
 ```bash
-git clone https://github.com/sutantodadang/malas-engineer.git \
-  ~/.hermes/skills/software-development/malas-engineer
+python3 scripts/validate.py .
+npm ci --prefix examples/typescript-contract --ignore-scripts --no-audit --no-fund
+python3 scripts/run_local_validation.py
+(cd scripts && python3 -m unittest -v test_architecture_audit)
+(cd examples/go-contract && go test ./...)
+(cd examples/python-contract && python3 -m unittest discover -s tests -v)
+node examples/typescript-contract/node_modules/typescript/bin/tsc -p examples/typescript-contract/tsconfig.json
+node --experimental-strip-types --test examples/typescript-contract/service.test.ts
+python3 scripts/architecture_audit.py /path/to/your/repo --json
 ```
 
-Hermes discovers `SKILL.md` automatically.
+For architecture scans, review findings manually; textual Go/TypeScript patterns and Python AST have false positives/negatives. `--fail-on-findings` is opt-in.
 
-### Claude Code
+## Content map
 
-```bash
-git clone https://github.com/sutantodadang/malas-engineer.git \
-  ~/.claude/skills/malas-engineer
-```
+- `SKILL.md` — engineering contract, gate before and after editing
+- `references/universal-application.md` — **apply to every language/paradigm**, with task-shape mapping and flexible DI
+- `references/decision-cards.md` — **split vs keep** decisions and clear DI fail examples
+- `references/dependency-injection-contract.md` — construction, actual usage, production wiring, fake substitution
+- `references/file-placement-contract.md` — layer ownership and file movement
+- `references/go-sqlc.md`, `python.md`, `typescript.md` — stack conventions
+- `references/research-synthesis.md` — 17 public sources and user repository evidence
+- `references/activation-and-evals.md` — always-on limitations and actual A/B steps
+- `examples/` — running Go, Python and TypeScript demonstrations
+- `scripts/architecture_audit.py` — diagnostic scanner, never changes files
+- `evals/cases.json`, `evals/rubric.json` — **multi-language** model evaluation tasks, not benchmark scores
+- `evals/reports/local-validation.json` — recorded local checks and their scope
 
-Use the repository as a project skill in `.claude/skills/`, or copy `CLAUDE.md` into the target repository root.
+The skill description should trigger on **coding tasks in any language**, but always-on `AGENTS.md`/`CLAUDE.md` is the durable pointer. Neither grants deterministic compliance without runtime checks and evaluation.
 
-### Codex and other AGENTS.md readers
-
-Copy `AGENTS.md` into the repository root, or reference this repository from an existing `AGENTS.md`.
-
-### Any agent
-
-The files are plain Markdown. Load `SKILL.md` and follow the reference triggers.
-
-## Validate
-
-```bash
-python3 scripts/validate_skill.py .
-bash scripts/review_diff.sh
-```
-
-The validator checks frontmatter fields, name rules, the 500-line limit, reference links, and orphan reference files.
-
-Use [tests/skill-scenarios.md](tests/skill-scenarios.md) to check helper-placement decisions with fresh agents. These behavioral samples do not replace verification on real code.
-
-## Design principles
-
-1. **Smallest sufficient architecture.** Layers are a tool, not a badge.
-2. **Evidence over confidence.** Observed, inferred, unknown.
-3. **Minimal diff.** One concern per change.
-4. **Risk-based tests.** Test at the level that can falsify the behavior.
-5. **Secure by default.** Authorization, tenancy, and input handling are not optional.
-6. **Progressive disclosure.** A lean `SKILL.md` routes to focused references.
-7. **Plain language.** Short sentences, concrete verbs, no marketing.
-8. **Deliberate ownership.** Place helpers by responsibility and real reuse; split files when it makes the workflow easier to understand.
-
-## Compatibility
-
-The skill follows the Agent Skills layout: `SKILL.md` with YAML frontmatter, optional `references/`, `scripts/`, and `assets/`. It works with Hermes, Claude Code, Codex, and any agent that reads Markdown instructions.
-
-## Contributing
-
-See `CONTRIBUTING.md`. Small, evidence-backed changes with a clear rationale are welcome.
-
-## License
-
-Apache License 2.0. See `LICENSE`.
+## Reproducing the evidence
+`python3 scripts/run_local_validation.py` runs local checks and refreshes `evals/reports/local-validation.json`. Install the pinned example compiler first; Python, Go and Node must be available. CI is configured to run the same checks on Windows and Linux. The runner does not execute model trials. See `evals/` for separate agent evidence and the broader benchmark protocol.

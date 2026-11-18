@@ -1,0 +1,12 @@
+{
+  "original": {
+    "skill_sha256": "3fefb130f6b8e1e8cc3f6254689972d1c60d2ce8ecb0dd5235d8015df37c9f3b",
+    "word_count": 1838,
+    "archive_sha256": "4535a0e3be0f2db81e293d1b3ba92ef41a4fcaade3eb4bc6a06a8bfbacf4e0fc"
+  },
+  "revised": {
+    "skill_sha256": "5a3e42484d79bb591a1b288f2f0d7e081b44e9149f2918fb18226645e872069c",
+    "word_count": 1234,
+    "archive_sha256": "b1500e24115d8ad5decc0dfbf8abfc759b2dd545fc3c9cc5aaa509e62505b468"
+  }
+}

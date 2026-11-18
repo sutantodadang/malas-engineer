@@ -1,0 +1,1 @@
+Review only. Identify the bug and smallest safe correction in catalog.py; do not edit code or tests. Report findings with locations and separate observed behavior from untested suggestions.

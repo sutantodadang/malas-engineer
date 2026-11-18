@@ -1,0 +1,1 @@
+Two widgets that refresh the same catalog record and view at the same time currently issue duplicate loads. Have them share the in-flight work. A refresh after the load finishes should fetch again. Preserve existing callers and cover the behavior with tests. Use the built-in Node test runner.

@@ -1,0 +1,50 @@
+{
+  "check_type": "Limited subagent smoke evaluation, not a capability or activation benchmark",
+  "dates": "2026-11-17 to 2026-11-18 Asia/Jakarta",
+  "repo_head": "e34a67c46e8702c1bb8de2147dddeafb800ecc90",
+  "input_state": "Uncommitted v6.1 draft, preserved in original-context.zip; HEAD alone is not input identity",
+  "model": "Inherited session model; exact model revision not exposed",
+  "agent_runtime": "Built-in collaboration subagents, fork_turns=none; shared system/developer harness",
+  "token_counts": null,
+  "latency_comparison": null,
+  "trials": [
+    {
+      "trial": "baseline-1",
+      "independent_checks_pass": true,
+      "checks": "./baseline-1/independent-checks.json"
+    },
+    {
+      "trial": "baseline-2",
+      "independent_checks_pass": true,
+      "checks": "./baseline-2/independent-checks.json"
+    },
+    {
+      "trial": "original-1",
+      "independent_checks_pass": true,
+      "checks": "./original-1/independent-checks.json"
+    },
+    {
+      "trial": "original-2",
+      "independent_checks_pass": true,
+      "checks": "./original-2/independent-checks.json"
+    },
+    {
+      "trial": "revised-complete-1",
+      "independent_checks_pass": true,
+      "checks": "./revised-complete-1/independent-checks.json"
+    },
+    {
+      "trial": "revised-complete-2",
+      "independent_checks_pass": true,
+      "checks": "./revised-complete-2/independent-checks.json"
+    }
+  ],
+  "limitations": [
+    "Two prompts per agent, two repetitions per condition; tasks are easy and explicitly identify the bug",
+    "Shared Ponytail and tool instructions remain in all conditions",
+    "Not randomized; no competing skill runtime evaluated",
+    "Revised complete trials resumed after a usage-limit interruption; no timing comparison",
+    "Two earlier revised trials lacked an optional eval reference and are excluded from comparison",
+    "Explicit skill paths do not measure automatic triggering"
+  ]
+}

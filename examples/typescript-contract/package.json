@@ -1,0 +1,7 @@
+{
+  "name": "malas-engineer-typescript-contract",
+  "private": true,
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "check_type": "Local reproducible contract tests, not coding-agent behavioral evaluation",
+  "timestamp_utc": "2026-11-18T09:28:19.300463+00:00",
+  "python": "3.12.12",
+  "environment_note": "Examples use stand-in adapters; no SQLC generation, external DB or full user project build",
+  "model_behavior_eval": "NOT RUN by this script: agent trials are recorded separately; runtime availability is not probed",
+  "checks": [
+    {
+      "name": "package",
+      "status": "PASS",
+      "command": "python scripts/validate.py .",
+      "working_directory": ".",
+      "exit_code": 0,
+      "stdout": "STATIC PACKAGE VALIDATION PASSED: 33 scenario definitions; package inputs and links present\n",
+      "stderr": ""
+    },
+    {
+      "name": "go_unit_and_handler",
+      "status": "PASS",
+      "command": "go test -count=1 ./...",
+      "working_directory": "examples\\go-contract",
+      "exit_code": 0,
+      "stdout": "ok  \texample.com/malas-engineer/go-contract/app\t1.181s\n?   \texample.com/malas-engineer/go-contract/cmd/demo\t[no test files]\n",
+      "stderr": ""
+    },
+    {
+      "name": "python_service_and_wiring",
+      "status": "PASS",
+      "command": "python -m unittest discover -s tests -v",
+      "working_directory": "examples\\python-contract",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_invalid_id_does_not_hit_reader (test_service.ContractTests.test_invalid_id_does_not_hit_reader) ... ok\ntest_real_wiring_reaches_transport (test_service.ContractTests.test_real_wiring_reaches_transport) ... ok\ntest_uses_injected_reader (test_service.ContractTests.test_uses_injected_reader) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK\n"
+    },
+    {
+      "name": "typescript_typecheck",
+      "status": "PASS",
+      "command": "node node_modules/typescript/bin/tsc -p tsconfig.json",
+      "working_directory": "examples\\typescript-contract",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "typescript_service_and_wiring",
+      "status": "PASS",
+      "command": "node --experimental-strip-types --test service.test.ts",
+      "working_directory": "examples\\typescript-contract",
+      "exit_code": 0,
+      "stdout": "(node:5756) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sutan/Documents/Programing/project/malas-engineer/examples/typescript-contract/service.test.ts is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to C:\\Users\\sutan\\Documents\\Programing\\project\\malas-engineer\\examples\\typescript-contract\\package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n\u2714 uses injected reader, not hidden ORM (1.1446ms)\n\u2714 invalid input skips repository (0.4374ms)\n\u2714 composition root supplies a real adapter (0.2459ms)\n\u2714 transport maps application errors (0.1569ms)\n\u2139 tests 4\n\u2139 suites 0\n\u2139 pass 4\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 327.7266\n",
+      "stderr": ""
+    },
+    {
+      "name": "tooling_regressions",
+      "status": "PASS",
+      "command": "python -m unittest discover -s scripts -p test_*.py -v",
+      "working_directory": ".",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_checkout_parent_does_not_set_file_role (test_architecture_audit.ArchitectureAuditTests.test_checkout_parent_does_not_set_file_role) ... ok\ntest_comment_removal_preserves_source_line_numbers (test_architecture_audit.ArchitectureAuditTests.test_comment_removal_preserves_source_line_numbers) ... ok\ntest_dependency_directories_are_never_entered (test_architecture_audit.ArchitectureAuditTests.test_dependency_directories_are_never_entered) ... ok\ntest_go_new_repo_bad (test_architecture_audit.ArchitectureAuditTests.test_go_new_repo_bad) ... ok\ntest_good_service_not_flagged (test_architecture_audit.ArchitectureAuditTests.test_good_service_not_flagged) ... ok\ntest_handler_direct_db_operation (test_architecture_audit.ArchitectureAuditTests.test_handler_direct_db_operation) ... ok\ntest_missing_scan_root_is_an_error (test_architecture_audit.ArchitectureAuditTests.test_missing_scan_root_is_an_error) ... ok\ntest_python_test_module_is_excluded (test_architecture_audit.ArchitectureAuditTests.test_python_test_module_is_excluded) ... ok\ntest_real_go_contract_example_not_flagged (test_architecture_audit.ArchitectureAuditTests.test_real_go_contract_example_not_flagged) ... ok\ntest_real_python_contract_example_not_flagged (test_architecture_audit.ArchitectureAuditTests.test_real_python_contract_example_not_flagged) ... ok\ntest_real_typescript_contract_example_not_flagged (test_architecture_audit.ArchitectureAuditTests.test_real_typescript_contract_example_not_flagged) ... ok\ntest_service_constructs_adapter_and_ignores_injection (test_architecture_audit.ArchitectureAuditTests.test_service_constructs_adapter_and_ignores_injection) ... ok\ntest_typescript_new_repo_bad (test_architecture_audit.ArchitectureAuditTests.test_typescript_new_repo_bad) ... ok\ntest_missing_executable_is_reported_not_run (test_local_validation.LocalValidationTests.test_missing_executable_is_reported_not_run) ... ok\ntest_timeout_is_a_failure_not_an_unrun_check (test_local_validation.LocalValidationTests.test_timeout_is_a_failure_not_an_unrun_check) ... ok\ntest_optimized_python_does_not_disable_validation (test_validate.PackageValidationTests.test_optimized_python_does_not_disable_validation) ... ok\n\n----------------------------------------------------------------------\nRan 16 tests in 0.649s\n\nOK\n"
+    },
+    {
+      "name": "architecture_scan_examples",
+      "status": "PASS",
+      "command": "python scripts/architecture_audit.py examples --json",
+      "working_directory": ".",
+      "exit_code": 0,
+      "stdout": "{\n  \"count\": 0,\n  \"findings\": []\n}\n",
+      "stderr": ""
+    }
+  ],
+  "passed": 7,
+  "failed": 0,
+  "not_run": 0
+}

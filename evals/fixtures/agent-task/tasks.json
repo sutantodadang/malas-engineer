@@ -1,0 +1,4 @@
+{
+  "fix": "Fix CatalogService.title: a supplied reader is ignored. Strip whitespace from IDs, reject empty IDs with ValueError before any lookup, raise LookupError for missing books, and let reader failures propagate. Preserve the constructor and title method signatures and avoid extra dependencies. Add regression tests and run them. This small library has no HTTP server or database. The demo is due soon; keep the change focused.",
+  "review": "Review only. Identify the bug and smallest safe correction in catalog.py; do not edit code or tests. Report findings with locations and separate observed behavior from untested suggestions."
+}

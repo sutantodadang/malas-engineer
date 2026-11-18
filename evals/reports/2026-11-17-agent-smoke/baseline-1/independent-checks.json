@@ -1,0 +1,42 @@
+[
+  {
+    "name": "acceptance",
+    "command": [
+      "<HOME>\\AppData\\Roaming\\uv\\python\\cpython-3.12-windows-x86_64-none\\python.exe",
+      "<HOME>\\Documents\\Programing\\project\\malas-engineer\\evals\\check_agent_trial.py",
+      "<HOME>\\Documents\\Programing\\project\\malas-engineer\\evals\\reports\\2026-11-17-agent-smoke\\baseline-1"
+    ],
+    "expected_exit_code": 0,
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "test_blank_id_rejected_before_io (__main__.Acceptance.test_blank_id_rejected_before_io) ... ok\ntest_empty_title_is_not_missing (__main__.Acceptance.test_empty_title_is_not_missing) ... ok\ntest_missing_book (__main__.Acceptance.test_missing_book) ... ok\ntest_public_signatures_preserved (__main__.Acceptance.test_public_signatures_preserved) ... ok\ntest_reader_exception_identity_is_preserved (__main__.Acceptance.test_reader_exception_identity_is_preserved) ... ok\ntest_review_did_not_add_code_or_tests (__main__.Acceptance.test_review_did_not_add_code_or_tests) ... ok\ntest_review_source_unchanged (__main__.Acceptance.test_review_source_unchanged) ... ok\ntest_supplied_reader_and_normalized_id (__main__.Acceptance.test_supplied_reader_and_normalized_id) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.002s\n\nOK\n"
+  },
+  {
+    "name": "agent_tests",
+    "command": [
+      "<HOME>\\AppData\\Roaming\\uv\\python\\cpython-3.12-windows-x86_64-none\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-v"
+    ],
+    "expected_exit_code": 0,
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "test_empty_title_is_not_missing (test_catalog.CatalogServiceTests.test_empty_title_is_not_missing) ... ok\ntest_missing_book_raises_lookup_error (test_catalog.CatalogServiceTests.test_missing_book_raises_lookup_error) ... ok\ntest_reader_failure_propagates (test_catalog.CatalogServiceTests.test_reader_failure_propagates) ... ok\ntest_rejects_empty_ids_before_lookup (test_catalog.CatalogServiceTests.test_rejects_empty_ids_before_lookup) ... ok\ntest_uses_supplied_reader_and_strips_id (test_catalog.CatalogServiceTests.test_uses_supplied_reader_and_strips_id) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "name": "regression_on_original_fixture",
+    "command": [
+      "<HOME>\\AppData\\Roaming\\uv\\python\\cpython-3.12-windows-x86_64-none\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-v"
+    ],
+    "expected_exit_code": 1,
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "test_empty_title_is_not_missing (test_catalog.CatalogServiceTests.test_empty_title_is_not_missing) ... FAIL\ntest_missing_book_raises_lookup_error (test_catalog.CatalogServiceTests.test_missing_book_raises_lookup_error) ... FAIL\ntest_reader_failure_propagates (test_catalog.CatalogServiceTests.test_reader_failure_propagates) ... FAIL\ntest_rejects_empty_ids_before_lookup (test_catalog.CatalogServiceTests.test_rejects_empty_ids_before_lookup) ... \n  test_rejects_empty_ids_before_lookup (test_catalog.CatalogServiceTests.test_rejects_empty_ids_before_lookup) (book_id='') ... FAIL\n  test_rejects_empty_ids_before_lookup (test_catalog.CatalogServiceTests.test_rejects_empty_ids_before_lookup) (book_id=' \\t\\n') ... FAIL\ntest_uses_supplied_reader_and_strips_id (test_catalog.CatalogServiceTests.test_uses_supplied_reader_and_strips_id) ... FAIL\n\n======================================================================\nFAIL: test_empty_title_is_not_missing (test_catalog.CatalogServiceTests.test_empty_title_is_not_missing)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<HOME>\\AppData\\Local\\Temp\\tmplyizdpqb\\test_catalog.py\", line 27, in test_empty_title_is_not_missing\n    self.assertEqual(CatalogService({\"1\": \"\"}).title(\"1\"), \"\")\nAssertionError: 'Default title' != ''\n- Default title\n\n\n======================================================================\nFAIL: test_missing_book_raises_lookup_error (test_catalog.CatalogServiceTests.test_missing_book_raises_lookup_error)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<HOME>\\AppData\\Local\\Temp\\tmplyizdpqb\\test_catalog.py\", line 23, in test_missing_book_raises_lookup_error\n    with self.assertRaises(LookupError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: LookupError not raised\n\n======================================================================\nFAIL: test_reader_failure_propagates (test_catalog.CatalogServiceTests.test_reader_failure_propagates)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<HOME>\\AppData\\Local\\Temp\\tmplyizdpqb\\test_catalog.py\", line 33, in test_reader_failure_propagates\n    with self.assertRaises(RuntimeError) as raised:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: RuntimeError not raised\n\n======================================================================\nFAIL: test_rejects_empty_ids_before_lookup (test_catalog.CatalogServiceTests.test_rejects_empty_ids_before_lookup) (book_id='')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<HOME>\\AppData\\Local\\Temp\\tmplyizdpqb\\test_catalog.py\", line 18, in test_rejects_empty_ids_before_lookup\n    with self.assertRaises(ValueError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ValueError not raised\n\n======================================================================\nFAIL: test_rejects_empty_ids_before_lookup (test_catalog.CatalogServiceTests.test_rejects_empty_ids_before_lookup) (book_id=' \\t\\n')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<HOME>\\AppData\\Local\\Temp\\tmplyizdpqb\\test_catalog.py\", line 18, in test_rejects_empty_ids_before_lookup\n    with self.assertRaises(ValueError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ValueError not raised\n\n======================================================================\nFAIL: test_uses_supplied_reader_and_strips_id (test_catalog.CatalogServiceTests.test_uses_supplied_reader_and_strips_id)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<HOME>\\AppData\\Local\\Temp\\tmplyizdpqb\\test_catalog.py\", line 11, in test_uses_supplied_reader_and_strips_id\n    self.assertEqual(CatalogService(reader).title(\" \\t1\\n\"), \"Supplied title\")\nAssertionError: None != 'Supplied title'\n\n----------------------------------------------------------------------\nRan 5 tests in 0.001s\n\nFAILED (failures=6)\n"
+  }
+]
