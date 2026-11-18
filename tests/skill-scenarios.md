@@ -4,7 +4,7 @@ Manual behavioral checks for instruction changes. These assess placement decisio
 
 ## Procedure
 
-Run each sample in a fresh agent context. For a control, provide only the scenario. For a guided sample, first load `SKILL.md`, `references/code-organization.md`, and `references/architecture-guide.md`. Request concrete destinations, affected consumers, and behavior checks. Do not give the expected decisions below to the agent.
+Run each sample in a fresh agent context. For a control, provide only the scenario. For a guided sample, from `skills/malas-engineer/` first load `SKILL.md`, `references/code-organization.md`, and `references/architecture-guide.md`. Request concrete destinations, affected consumers, and behavior checks. Do not give the expected decisions below to the agent.
 
 Use five independent samples per variant. Read the answers manually; keyword matches cannot distinguish a recommendation from a rejected counterexample. Record deviations and evidence limits. Keep all agents read-only.
 

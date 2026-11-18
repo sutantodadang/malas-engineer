@@ -48,6 +48,8 @@ def parse_frontmatter(text: str) -> tuple[dict[str, str], str]:
 
 def main() -> int:
     skill_dir = Path(sys.argv[1] if len(sys.argv) > 1 else ".").resolve()
+    if (skill_dir / "skills/malas-engineer/SKILL.md").is_file() and not (skill_dir / "SKILL.md").exists():
+        skill_dir = skill_dir / "skills/malas-engineer"
     skill_md = skill_dir / "SKILL.md"
     errors: list[str] = []
     warnings: list[str] = []

@@ -1,7 +1,9 @@
 # Activation, mechanical checks, and reproducible behavior evaluation
 
 ## Activation reliability
-A standalone SKILL.md is not literally always active. Install minimal always-on `AGENTS.md` (Codex) or `CLAUDE.md` (Claude Code) and tell it to invoke the named skill before implementing. The skill body can still be skipped by the agent: explicit invocation for critical tasks is safer.
+The [installer](../README.md#quick-start) writes a short standing instruction to the agent’s native personal configuration. A manual skill-only copy uses on-demand discovery. Project rules and context limits affect both modes.
+
+On Windows, two fresh Codex CLI 0.146.0 processes showed the standing rule and the installed entry point in `codex debug prompt-input`. Two fresh Claude Code 2.1.238 processes included both in requests captured by a local test endpoint. These probes used disposable user profiles and confirmed startup loading. The behavioral trials below measure task outcomes separately.
 
 - Keep always-on instructions short and task-specific; do not paste a 1000-line manual into global settings.
 - Use repository-local instructions for project-specific rules and exact test commands. Merge, do not overwrite.
@@ -9,7 +11,7 @@ A standalone SKILL.md is not literally always active. Install minimal always-on 
 - Automated checks and CI/test results outrank the agent's summary.
 
 ## Static architecture diagnostic
-From the skill directory:
+From a maintainer checkout:
 
 `python3 scripts/architecture_audit.py /path/to/project --json`
 
@@ -23,4 +25,4 @@ This scanner uses Python AST for Python and text heuristics for Go/TypeScript. I
 5. Record false positives and manual edits needed. Change just the skill rules that caused failures, repeat evaluation with held-out cases.
 6. Publish actual evidence, model version and environment before claiming compliance improvement.
 
-Local examples and architecture diagnostic validate **code contracts**, not model compliance. `evals/reports/local-validation.json` explicitly labels these tests.
+Local examples and architecture diagnostic validate **code contracts**, not model compliance. `.artifacts/local-validation.json` explicitly labels these tests.

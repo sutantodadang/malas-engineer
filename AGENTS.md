@@ -1,2 +1,3 @@
-# Malas Engineer repository instructions
-This repo is the source of the Malas Engineer coding skill. Read `SKILL.md` before engineering modifications. Validate with `python3 scripts/validate.py .` and inspect changes. This root AGENTS.md is for maintaining THIS repository, not an installer that automatically modifies other repositories. For always-on behavior, install `install/global-AGENTS.md` in your personal Codex configuration (merge; never overwrite existing instructions).
+# Maintaining Malas Engineer
+
+Read [the skill](skills/malas-engineer/SKILL.md) before engineering changes. Use [the contribution guide](CONTRIBUTING.md) for packaging and verification.

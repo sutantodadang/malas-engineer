@@ -41,7 +41,7 @@ summary={'check_type':'Local reproducible contract tests, not coding-agent behav
          'passed':sum(r['status']=='PASS' for r in results),
          'failed':sum(r['status']=='FAIL' for r in results),
          'not_run':sum(r['status']=='NOT RUN' for r in results)}
-output=ROOT/'evals/reports/local-validation.json'
+output=ROOT/'.artifacts/local-validation.json'
 output.parent.mkdir(parents=True, exist_ok=True)
 output.write_text(json.dumps(summary,indent=2)+'\n',encoding='utf-8')
 print(f'Results recorded to {output.relative_to(ROOT)}')

@@ -89,6 +89,3 @@ Read only the entries needed for the current task. Reference examples illustrate
 | Test strategy or review depth | [Testing](references/testing-guide.md), [review checklist](references/review-checklist.md), [AI review pitfalls](references/ai-code-review.md) |
 | Trust boundaries or reliability/performance risk | [Security](references/security-checklist.md), [reliability](references/reliability-performance.md) |
 | Maintaining project instructions | [Agent context](references/agent-context-guide.md) |
-| Installing or evaluating this skill | [Activation](references/activation-and-evals.md), [eval protocol](evals/README.md) |
-| Researching skill improvements | [Provenance](references/research-and-provenance.md), [research synthesis](references/research-synthesis.md) |
-| Runnable DI illustrations | [Examples](examples/README.md): Go, Python, TypeScript standard-library stand-ins, not live SQLC/ORM deployments |

@@ -1,63 +1,60 @@
-# Malas Engineer v5.0.0
+# Malas Engineer
 
-Malas Engineer helps coding agents decide where behavior belongs, who owns external resources, and which checks demonstrate that a change works. Small fixes stay with the owning module. New backends get explicit boundaries when the workflow needs them. Review requests stay read-only.
+Malas Engineer helps a coding agent decide where a change belongs, which callers it affects, and how to demonstrate that it works. It covers implementation, debugging, refactoring, tests and read-only review. [Apache-2.0 license](LICENSE)
 
-The same decisions apply to libraries, CLIs, migrations and frontends. The [task guide](references/universal-application.md) shows how to adapt them across languages.
+## Quick start
 
-## What this version actually tests
+**[Download malas-engineer.pyz](https://raw.githubusercontent.com/sutantodadang/malas-engineer/main/install/malas-engineer.pyz)** and open a terminal in the download directory. With Python 3.11 or newer, run one command for the agent you use.
 
-- **Go:** standard-library example builds and its `go test ./...` suite exercises injected fake, input failure, production composition.
-- **Python:** `unittest` exercises injected fake, input errors, route mapping, production wiring.
-- **TypeScript:** `tsc --noEmit` type-checks source and Node experimental type stripping executes tests for injected fake and wiring (does not replace testing under project-specific compiler/framework).
-- **Architecture diagnostic:** unit tests verify that known bad samples are flagged and known good examples are not flagged. This is a *heuristic*, not a proof of all layered architecture claims.
-- **Packaging:** metadata, reference links and 33 scenario definitions. The release ZIP contains a SHA-256 inventory of its files, excluding the inventory itself.
+| Agent | Windows | macOS or Linux |
+| --- | --- | --- |
+| Codex | `python malas-engineer.pyz codex` | `python3 malas-engineer.pyz codex` |
+| Claude Code | `python malas-engineer.pyz claude` | `python3 malas-engineer.pyz claude` |
 
-The [v5 trial report](evals/reports/v5-trials.md) compares actual agent changes on a Python CLI and an asynchronous JavaScript service. It includes replayable outputs, independent tests and a separate Codex discovery check. The [earlier trial](evals/reports/2026-11-17-review.md) covers Python library fixes and read-only reviews. Live databases, SQLC generation and customer deployments remain untested.
+Start a **new agent session** in any project and ask an ordinary coding question. For example, “Review the callers of this function before we change its return type.” You can also invoke the skill explicitly with `$malas-engineer` in Codex or `/malas-engineer` in Claude Code.
 
-## Installation
+The installer runs offline using the Python standard library. It installs 21 files comprising the skill, its license and 19 on-demand engineering references. Python is needed only to run the installer. Inspect the [installer source](install/installer.py) or [portable skill](skills/malas-engineer).
 
-Extract the `malas-engineer` directory from the release ZIP. The directory must contain `SKILL.md` directly. When updating an installation, preserve any personal customizations.
+<details>
+<summary>Download and install from the terminal in one command</summary>
 
-**Codex** uses `~/.agents/skills/malas-engineer`. For a team installation, use `.agents/skills/malas-engineer` in the project. Invoke `$malas-engineer` explicitly or let Codex select it from the task description. For a standing preference, merge [the Codex snippet](install/global-AGENTS.md) into your personal `~/.codex/AGENTS.md`.
+Windows PowerShell 7, for Codex:
 
-**Claude Code** uses `~/.claude/skills/malas-engineer`. For a standing preference, merge [the Claude snippet](install/global-CLAUDE.md) into your existing `~/.claude/CLAUDE.md`.
-
-**Hermes (where compatible):** place skill at `~/.hermes/skills/software-development/malas-engineer` as described by the existing Malas Engineer repository. This is skill discovery, not proof of always-on execution.
-
-**Repo-local:** for team/project rules, add short repo-root `AGENTS.md` or `CLAUDE.md` with exact build/test commands. Skill internal `AGENTS.md`/`CLAUDE.md` are *for maintaining this skill repository*; the contents of `install/` are the snippets for global activation.
-
-## Commands
-
-```bash
-python3 scripts/validate.py .
-npm ci --prefix examples/typescript-contract --ignore-scripts --no-audit --no-fund
-python3 scripts/run_local_validation.py
-(cd scripts && python3 -m unittest -v test_architecture_audit)
-(cd examples/go-contract && go test ./...)
-(cd examples/python-contract && python3 -m unittest discover -s tests -v)
-node examples/typescript-contract/node_modules/typescript/bin/tsc -p examples/typescript-contract/tsconfig.json
-node --experimental-strip-types --test examples/typescript-contract/service.test.ts
-python3 scripts/architecture_audit.py /path/to/your/repo --json
+```powershell
+curl.exe -fLO https://raw.githubusercontent.com/sutantodadang/malas-engineer/main/install/malas-engineer.pyz && python malas-engineer.pyz codex
 ```
 
-For architecture scans, review findings manually; textual Go/TypeScript patterns and Python AST have false positives/negatives. `--fail-on-findings` is opt-in.
+macOS or Linux, for Claude Code:
 
-## Content map
+```sh
+curl -fLO https://raw.githubusercontent.com/sutantodadang/malas-engineer/main/install/malas-engineer.pyz && python3 malas-engineer.pyz claude
+```
 
-- `SKILL.md` — engineering contract, gate before and after editing
-- `references/universal-application.md` — **apply to every language/paradigm**, with task-shape mapping and flexible DI
-- `references/decision-cards.md` — **split vs keep** decisions and clear DI fail examples
-- `references/dependency-injection-contract.md` — construction, actual usage, production wiring, fake substitution
-- `references/file-placement-contract.md` — layer ownership and file movement
-- `references/go-sqlc.md`, `python.md`, `typescript.md` — stack conventions
-- `references/research-synthesis.md` — 17 public sources and user repository evidence
-- `references/activation-and-evals.md` — always-on limitations and actual A/B steps
-- `examples/` — running Go, Python and TypeScript demonstrations
-- `scripts/architecture_audit.py` — diagnostic scanner, never changes files
-- `evals/cases.json`, `evals/rubric.json` — **multi-language** model evaluation tasks, not benchmark scores
-- `evals/reports/local-validation.json` — recorded local checks and their scope
+Change the final argument to choose the other agent. Both commands save the installer in the current directory.
 
-The skill description should trigger on **coding tasks in any language**, but always-on `AGENTS.md`/`CLAUDE.md` is the durable pointer. Neither grants deterministic compliance without runtime checks and evaluation.
+</details>
 
-## Reproducing the evidence
-`python3 scripts/run_local_validation.py` runs local checks and refreshes `evals/reports/local-validation.json`. Install the pinned example compiler first; Python, Go and Node must be available. CI is configured to run the same checks on Windows and Linux. The runner does not execute model trials. See `evals/` for separate agent evidence and the broader benchmark protocol.
+## How it stays active
+
+The installer adds a short, marked instruction to the selected agent’s personal startup file. It tells the agent which local skill file to read for coding tasks and includes the core review and verification rules. Each agent loads this through its built-in startup mechanism. No hook or background service is required.
+
+| Agent | Skill directory | Personal startup instructions |
+| --- | --- | --- |
+| Codex | `~/.agents/skills/malas-engineer/` | `$CODEX_HOME/AGENTS.md` (default `~/.codex/AGENTS.md`) and an existing active `AGENTS.override.md` |
+| Claude Code | `$CLAUDE_CONFIG_DIR/skills/malas-engineer/` | `$CLAUDE_CONFIG_DIR/CLAUDE.md` (default `~/.claude/CLAUDE.md`) |
+
+Startup instructions make the rule available in each normal session. The model decides how to act, subject to the host’s instruction precedence and context limits. Use your project’s tests and CI for checks that must block a merge. [Codex instructions](https://developers.openai.com/codex/guides/agents-md/) · [Claude Code memory](https://code.claude.com/docs/en/memory)
+
+## Update or remove
+
+Download the current installer and run the same command to update. Running it twice leaves a single instruction block. A recognized older installation, including the old full-repository ZIP, or one with personal edits is moved to a backup outside the skill discovery directory. The installer prints the backup path. Existing instructions outside the marked block are preserved. If you manually added activation text for an older version, review that text separately.
+
+To uninstall, append `--uninstall` to the same command, for example `python malas-engineer.pyz codex --uninstall`. Restart the agent. A modified skill directory is backed up during removal.
+
+For a **project-only or manual installation**, copy just [skills/malas-engineer](skills/malas-engineer) into the agent’s skills directory. For Codex in a project use `.agents/skills/`. For Claude Code use `.claude/skills/`. This option uses normal skill discovery. Teams can add a project rule in their own instruction file.
+
+## Evidence and contributions
+
+The [agent trial report](evals/reports/v5-trials.md) includes the prompts, independent checks and replayable outputs for 16 earlier runs. It records both an improvement on a Python CLI task and a tie on a JavaScript concurrency task. The [runnable examples](examples/README.md), [evaluation protocol](evals/README.md) and [research notes](references/research-synthesis.md) are maintainer resources.
+
+CI checks the skill metadata, rebuilds the downloadable installer, tests installation in temporary homes, and runs the example and tooling suites. See [contributing](CONTRIBUTING.md) and [security reporting](SECURITY.md).

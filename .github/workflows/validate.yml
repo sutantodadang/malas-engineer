@@ -5,6 +5,16 @@ on:
   pull_request:
 
 jobs:
+  macos-installer:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+      - run: python3 scripts/build_installer.py --check
+      - run: python3 -m unittest discover -s scripts -p test_install.py -v
+
   validate:
     strategy:
       matrix:
@@ -26,7 +36,9 @@ jobs:
         working-directory: examples/typescript-contract
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Validate skill metadata
-        run: python3 scripts/validate_skill.py .
+        run: python3 scripts/validate_skill.py skills/malas-engineer
+      - name: Verify the downloadable installer matches the reviewed sources
+        run: python3 scripts/build_installer.py --check
       - name: Run package, tooling, and executable contract checks
         run: python3 scripts/run_local_validation.py
       - name: Exercise diff hygiene on staged changes

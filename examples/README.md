@@ -1,6 +1,6 @@
 # Executable reference contracts
 
-These are **three illustrative miniature examples**, not the only languages supported. They are not copies of user code and do not claim SQLC is actually generated here. For every other language follow [universal application](../references/universal-application.md) and the current project conventions. They express dependency boundaries in plain Go, Python, and TypeScript, with actual wiring and fake-adapter tests.
+These are **three illustrative miniature examples**, not the only languages supported. They are not copies of user code and do not claim SQLC is actually generated here. For every other language follow [universal application](../skills/malas-engineer/references/universal-application.md) and the current project conventions. They express dependency boundaries in plain Go, Python, and TypeScript, with actual wiring and fake-adapter tests.
 
 - Go: `cd examples/go-contract && go test ./...` (stdlib-only, Go 1.22+)
 - Python: `cd examples/python-contract && python -m unittest discover -s tests -v` (stdlib-only)

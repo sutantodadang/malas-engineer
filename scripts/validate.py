@@ -10,10 +10,10 @@ from validate_skill import parse_frontmatter
 
 REQUIRED = (
     'README.md', 'AGENTS.md', 'CLAUDE.md', 'LICENSE',
-    'install/global-AGENTS.md', 'install/global-CLAUDE.md',
+    'install/installer.py', 'install/malas-engineer.pyz',
     'evals/cases.json', 'evals/rubric.json',
-    'references/decision-cards.md', 'references/research-synthesis.md',
-    'references/activation-and-evals.md', 'references/universal-application.md',
+    'skills/malas-engineer/references/decision-cards.md', 'references/research-synthesis.md',
+    'references/activation-and-evals.md', 'skills/malas-engineer/references/universal-application.md',
     'examples/go-contract/app/service.go', 'examples/go-contract/app/service_test.go',
     'examples/python-contract/catalog/service.py',
     'examples/python-contract/tests/test_service.py',
@@ -31,9 +31,9 @@ def require(condition, message):
 
 
 def validate(root):
-    for rel in ('SKILL.md', *REQUIRED):
+    for rel in ('skills/malas-engineer/SKILL.md', *REQUIRED):
         require((root / rel).is_file(), f'missing {rel}')
-    text = (root / 'SKILL.md').read_text(encoding='utf-8')
+    text = (root / 'skills/malas-engineer/SKILL.md').read_text(encoding='utf-8')
     header, _ = parse_frontmatter(text)
     require(header.get('name') == 'malas-engineer', 'invalid skill name')
     require(0 < len(header.get('description', '')) <= 1024, 'invalid description')

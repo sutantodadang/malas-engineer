@@ -21,7 +21,7 @@ class LocalValidationTests(unittest.TestCase):
             with patch('subprocess.run', side_effect=[first] + [success] * 6):
                 with contextlib.redirect_stdout(io.StringIO()), self.assertRaises(SystemExit) as exit:
                     runpy.run_path(str(script), run_name='__main__')
-            report = json.loads((Path(tmp) / 'evals/reports/local-validation.json').read_text())
+            report = json.loads((Path(tmp) / '.artifacts/local-validation.json').read_text())
             return exit.exception.code, report
 
     def test_timeout_is_a_failure_not_an_unrun_check(self):

@@ -2,10 +2,7 @@
 
 ## Supported versions
 
-| Version | Supported |
-|---|---|
-| 4.x | Yes |
-| 3.x | No |
+Fixes are maintained on the default branch. Include the commit or installer checksum when reporting a problem.
 
 ## Reporting a vulnerability
 

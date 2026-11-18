@@ -53,7 +53,7 @@ class InvoiceService:
         self._validate(invoice)
         return self.repo.create(invoice)
 ```
-The real adapter is constructed in bootstrap (not shown). See executable full examples in `examples/`.
+The real adapter is constructed in bootstrap (not shown).
 
 ## D. Anti-layering illusions
 - Moving DB code into `db_utils.py` but importing it from handlers does **not** create a valid service boundary.

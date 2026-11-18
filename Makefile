@@ -1,7 +1,8 @@
 .PHONY: validate lint test
 
 validate:
-	python3 scripts/validate_skill.py .
+	python3 scripts/build_installer.py --check
+	python3 scripts/validate_skill.py skills/malas-engineer
 	python3 scripts/validate.py .
 
 lint:

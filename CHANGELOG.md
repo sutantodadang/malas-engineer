@@ -4,6 +4,10 @@ All notable changes to this skill are documented here. The format follows Keep a
 
 ## [Unreleased]
 
+- Install the runtime skill and personal coding instructions with a single offline installer for Codex or Claude Code. The previous GitHub Releases have been withdrawn.
+- Move the portable skill to `skills/malas-engineer/`. Examples, diagnostics, research and evaluation archives stay in the maintainer repository.
+- Add installer reproducibility, migration and uninstall checks to CI.
+
 ## [5.0.0] - 2026-11-18
 
 - Route read-only reviews, small fixes and specification-driven changes through distinct checks. Apply dependency injection and layering where the software has the corresponding responsibilities.
